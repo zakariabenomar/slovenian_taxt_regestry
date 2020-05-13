@@ -1,0 +1,4 @@
+07/02/2017 16:42:05 	[CHANGE] Add fields in account.invoice to replace warning pop-ups with divs 
+04/02/2017 10:15:34 	[FIX]	 Change constraints for date fields 
+27/01/2017 19:30:47 	[CHANGE] Change views/report_account_invoice.xml
+27/01/2017 19:30:52 	[CHANGE] Add date_invoice_received field in account.invoice

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="account_move_view_form_inherit_l10n_si_invoice_format" model="ir.ui.view">
+			<field name="name">account.move.form.inherit</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+				<field name="invoice_has_outstanding" position="after">
+					<div class="alert alert-info" role="alert" 
+						 attrs="{'invisible': ['|', ('state','!=','draft'), ('invisible_warning_invoice_dates','=',True)]}"
+						 style="margin-bottom:0px;">
+						<field name="invisible_warning_invoice_dates" invisible="1"/>
+						<field name="warning_invoice_dates"/>
+					</div>
+					
+					<div class="alert alert-info" role="alert"  
+						 attrs="{'invisible': ['|', ('state','!=','draft'), ('invisible_warning_invoice_number','=',True)]}"
+						 style="margin-bottom:0px;">
+						<field name="invisible_warning_invoice_number" invisible="1"/>
+						<field name="warning_invoice_number"/>
+					</div>
+				</field>
+				
+				<xpath expr="//label[@for='invoice_payment_term_id']" position="before">
+					<field name="date_invoice_creation"/>
+				</xpath>
+			</field>
+    	</record>
+		
+		<record id="account_invoice_view_supplier_form_inherit_l10n_si_invoice_format" model="ir.ui.view">
+			<field name="name">account.move.supplier.form.inherit</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form"/>
+			<field name="arch" type="xml">
+<!--				<field name="invoice_date" position="before">-->
+<!--					<field name="date_invoice_creation"/>-->
+<!--				</field>				-->
+				<field name="invoice_date_due" position="after">
+					<field name="date_invoice_received"/>
+				</field>
+			</field>
+    	</record>		
+  	</data>
+</odoo>
+
+
+				

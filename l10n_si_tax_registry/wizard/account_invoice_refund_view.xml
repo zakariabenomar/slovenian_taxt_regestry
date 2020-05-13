@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="view_account_invoice_refund_inherit_l10n_si_tax_reg" model="ir.ui.view">-->
+<!--            <field name="name">account.invoice.refund.form.inherit.tax.reg</field>-->
+<!--            <field name="model">account.move.reversal</field>-->
+<!--            <field name="inherit_id" ref="account.view_account_invoice_refund"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='refund_only']" position="after">-->
+<!--                    <field name="l10n_si_tax_reg_check" invisible="1"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='filter_refund']" position="attributes">-->
+<!--                    <attribute name="attrs">{'invisible': ['|',('refund_only','=',True),('l10n_si_tax_reg_check', '=', True)]}</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

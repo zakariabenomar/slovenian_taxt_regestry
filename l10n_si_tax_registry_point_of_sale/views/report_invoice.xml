@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+  <!-- TODO: Could replacement be done without coping the original code?-->
+  <template id="report_invoice_document" inherit_id="l10n_si_tax_registry.report_invoice_document">
+    <xpath expr="//div[@t-if='o.l10n_si_tax_reg_num_copy &gt; 0']" position="after">
+      <t t-if="docs and docs[0] and docs[0]._name == 'pos.order'">
+        <t t-set="l10n_si_tax_reg_point_of_sale_report" t-value="o._get_export_for_l10n_si_tax_reg_point_of_sale_report()"/>
+        <t t-if="l10n_si_tax_reg_point_of_sale_report">
+          <div class="col-xs-4" t-if="l10n_si_tax_reg_point_of_sale_report.date_order">
+            <strong>Invoice Issue Time:</strong>
+            <p t-field="l10n_si_tax_reg_point_of_sale_report.date_order"/>
+          </div>
+          <div class="col-xs-4" t-if="l10n_si_tax_reg_point_of_sale_report._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]">
+            <strong>Operator Identification:</strong>
+            <p t-esc="l10n_si_tax_reg_point_of_sale_report._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]"/>
+          </div>
+        </t>
+      </t>
+    </xpath>
+    <xpath expr="//div[@t-if='o.l10n_si_tax_reg_date_invoice']" position="replace">
+      <t t-if="not docs or not docs[0] or docs[0]._name != 'pos.order'">
+        <div class="col-xs-4" t-if="o.l10n_si_tax_reg_date_invoice">
+          <strong>Invoice Issue Time:</strong>
+          <p t-field="o.l10n_si_tax_reg_date_invoice"/>
+        </div>
+      </t>
+    </xpath>
+    <xpath expr="//div[@t-if='o._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]']" position="replace">
+      <t t-if="not docs or not docs[0] or docs[0]._name != 'pos.order'">
+        <div class="col-xs-4" t-if="o._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]">
+          <strong>Operator Identification:</strong>
+          <p t-esc="o._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]"/>
+        </div>
+      </t>
+    </xpath>
+    <xpath expr="//div[@t-if='o.l10n_si_tax_reg_eor or o.l10n_si_tax_reg_zoi']" position="after">
+      <t t-if="docs and docs[0] and docs[0]._name == 'pos.order'">
+        <t t-set="l10n_si_tax_reg_point_of_sale_report" t-value="o._get_export_for_l10n_si_tax_reg_point_of_sale_report()"/>
+        <div class="col-xs-6 pull-left" t-if="l10n_si_tax_reg_point_of_sale_report">
+          <p class="mb0" t-if="l10n_si_tax_reg_point_of_sale_report.l10n_si_tax_reg_eor">
+            <strong>EOR: </strong>
+            <span t-field="l10n_si_tax_reg_point_of_sale_report.l10n_si_tax_reg_eor"/>
+          </p>
+          <p t-if="l10n_si_tax_reg_point_of_sale_report.l10n_si_tax_reg_zoi">
+            <strong>ZOI: </strong>
+            <span t-field="l10n_si_tax_reg_point_of_sale_report.l10n_si_tax_reg_zoi"/><br/>
+            <img t-att-src="'/l10n_si_tax_registry/barcode?type=QR&amp;value=%s' % l10n_si_tax_reg_point_of_sale_report.get_report_for_l10n_si_tax_reg_barcode()"/>
+          </p>
+        </div>
+      </t>
+    </xpath>
+    <xpath expr="//div[@t-if='o.l10n_si_tax_reg_eor or o.l10n_si_tax_reg_zoi']" position="replace">
+      <t t-if="not docs or not docs[0] or docs[0]._name != 'pos.order'">
+        <div class="col-xs-6 pull-left" t-if="o.l10n_si_tax_reg_eor or o.l10n_si_tax_reg_zoi">
+          <p class="mb0" t-if="o.l10n_si_tax_reg_eor">
+            <strong>EOR: </strong>
+            <span t-field="o.l10n_si_tax_reg_eor"/>
+          </p>
+          <p t-if="o.l10n_si_tax_reg_zoi">
+            <strong>ZOI: </strong>
+            <span t-field="o.l10n_si_tax_reg_zoi"/><br/>
+            <img t-att-src="'/l10n_si_tax_registry/barcode?type=QR&amp;value=%s' % o.get_report_for_l10n_si_tax_reg_barcode()"/>
+          </p>
+        </div>
+      </t>
+    </xpath>
+  </template>
+
+</data>
+</odoo>

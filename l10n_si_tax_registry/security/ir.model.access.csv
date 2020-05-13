@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_si_tax_reg_premise_manager,l10n_si_tax_reg.premise,model_l10n_si_tax_reg_premise,account.group_account_manager,1,1,1,1
+access_l10n_si_tax_reg_premise_user,l10n_si_tax_reg.premise user,model_l10n_si_tax_reg_premise,account.group_account_invoice,1,0,0,0
+access_l10n_si_tax_reg_premise_line_manager,l10n_si_tax_reg.premise.line,model_l10n_si_tax_reg_premise_line,account.group_account_manager,1,1,1,1
+access_l10n_si_tax_reg_premise_line_user,l10n_si_tax_reg.premise.line user,model_l10n_si_tax_reg_premise_line,account.group_account_invoice,1,0,0,0

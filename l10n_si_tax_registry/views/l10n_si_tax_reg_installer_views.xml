@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="l10n_si_tax_reg_installer_view_form" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.installer.form</field>
+      <field name="model">l10n_si_tax_reg.installer</field>
+      <field name="inherit_id" ref="base.res_config_installer"/>
+      <field name="arch" type="xml">
+        <button name="action_next" position="attributes">
+          <attribute name="string">Setup Connection</attribute>
+        </button>
+        <separator string="title" position="replace">
+          <header>
+            <button name="action_next" type="object" context="{'test_connection': True}" string="Setup And Test Connection"/>
+          </header>
+          <p class="oe_grey">
+            This installation wizard will help you set up your first environment
+            that you can use to start registering your invoices to Slovenian tax
+            registration institutes.<br/>
+            If you don't want to do this now, you can skip this wizard and
+            configure all the information manually in system settings.<br/>
+            Here you can set all the credentials and connection parameters that
+            are needed to establish a successful connection to the Slovenian
+            tax registry server. It is required for any further data processing.
+          </p>
+          <group col="4">
+            <field name="company_id" widget="selection"/>
+          </group>
+          <group string="Certificates">
+            <group>
+              <field name="private_key"/>
+              <field name="public_cert"/>
+              <field name="authority_cert"/>
+            </group>
+            <group>
+              <field name="dev_mode"/>
+            </group>
+          </group>
+        </separator>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_action" model="ir.actions.act_window">
+      <field name="name">Configure Slovenian Tax Registry Connection Data</field>
+      <field name="res_model">l10n_si_tax_reg.installer</field>
+      <field name="view_id" ref="l10n_si_tax_reg_installer_view_form"/>
+<!--      <field name="view_type">form</field>-->
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_installer_action" model="ir.actions.todo">
+      <field name="action_id" ref="l10n_si_tax_reg_installer_action"/>
+      <field name="sequence">10</field>
+      <field name="type">automatic</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_premise_view_form" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.installer.premise.form</field>
+      <field name="model">l10n_si_tax_reg.installer.premise</field>
+      <field name="inherit_id" ref="base.res_config_installer"/>
+      <field name="arch" type="xml">
+        <button name="action_next" position="attributes">
+          <attribute name="string">Setup Premise</attribute>
+        </button>
+        <separator string="title" position="replace">
+          <header>
+            <button name="action_next" type="object" context="{'register_premise': True}" string="Setup And Register Premise"/>
+          </header>
+          <p class="oe_grey">
+            This installation wizard will help you set up your first environment
+            that you can use to start registering your invoices to Slovenian tax
+            registration institutes.<br/>
+            If you don't want to do this now, you can skip this wizard and
+            configure all the information manually in system settings.<br/>
+            Here you can setup your area of operation and add all the necesary
+            information to it. Optionally you can register it to the tax
+            institution right away in this setup wizard.
+          </p>
+          <group col="4">
+            <field name="company_id" widget="selection"/>
+            <field name="partner_id"/>
+            <field name="ir_sequence_id"/>
+            <field name="ir_sequence_type" widget="radio"/>
+            <field name="force_sent"/>
+          </group>
+          <separator string="Business Premise"/>
+          <group>
+            <field name="res_partner_id"/>
+            <field name="name" attrs="{'invisible': [('res_partner_id', '&lt;&gt;', False)], 'required': [('res_partner_id', '=', False)]}"/>
+            <field name="date" attrs="{'invisible': [('res_partner_id', '&lt;&gt;', False)], 'required': [('res_partner_id', '=', False)]}"/>
+            <field name="type" widget="radio"/>
+            <field name="type_movable" attrs="{'invisible': [('type', '&lt;&gt;', 'movable')], 'required': [('type', '=', 'movable')]}" widget="radio"/>
+          </group>
+          <group attrs="{'invisible': ['|', ('res_partner_id', '&lt;&gt;', False), ('type', '&lt;&gt;', 'real_estate')]}">
+            <label for="street"/>
+            <div>
+              <field name="street" placeholder="Street (e.g. Tržaska cesta 24B)" attrs="{'required': [('res_partner_id', '=', False), ('type', '=', 'real_estate')]}"/>
+              <field name="street2" placeholder="Community" attrs="{'required': [('res_partner_id', '=', False), ('type', '=', 'real_estate')]}"/>
+              <div class="address_format">
+                <field name="city" placeholder="City" style="width: 70%%" attrs="{'required': [('res_partner_id', '=', False), ('type', '=', 'real_estate')]}"/>
+                <field name="zip" placeholder="ZIP" style="width: 30%%" attrs="{'required': [('res_partner_id', '=', False), ('type', '=', 'real_estate')]}"/>
+              </div>
+            </div>
+          </group>
+          <group attrs="{'invisible': [('type', '&lt;&gt;', 'real_estate')]}">
+            <field name="number_cadastral" attrs="{'required': [('type', '=', 'real_estate')]}"/>
+            <field name="number_building" attrs="{'required': [('type', '=', 'real_estate')]}"/>
+            <field name="number_section_building" attrs="{'required': [('type', '=', 'real_estate')]}"/>
+          </group>
+          <div attrs="{'invisible': [('res_partner_id', '&lt;&gt;', False)]}">
+            <label for="comment"/>
+            <field name="comment"/>
+          </div>
+          <separator string="Electronic Device"/>
+          <label for="electronic_device_name"/>
+          <field name="electronic_device_name" attrs="{'required': [('ir_sequence_type', '=', 'b')]}"/>
+          <label for="electronic_device_description"/>
+          <field name="electronic_device_description"/>
+        </separator>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_premise_action" model="ir.actions.act_window">
+      <field name="name">Configure Slovenian Tax Registry Premise Data</field>
+      <field name="res_model">l10n_si_tax_reg.installer.premise</field>
+      <field name="view_id" ref="l10n_si_tax_reg_installer_premise_view_form"/>
+<!--      <field name="view_type">form</field>-->
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_installer_premise_action" model="ir.actions.todo">
+      <field name="action_id" ref="l10n_si_tax_reg_installer_premise_action"/>
+      <field name="sequence">20</field>
+      <field name="type">automatic</field>
+    </record>
+
+    <!--record id="l10n_si_tax_reg_installer_account_tax_view_form" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.installer.account.tax.form</field>
+      <field name="model">l10n_si_tax_reg.installer.account.tax</field>
+      <field name="inherit_id" ref="base.res_config_installer"/>
+      <field name="arch" type="xml">
+        <separator string="title" position="replace">
+          <p class="oe_grey">
+            This installation wizard will help you set up your first environment
+            that you can use to start registering your invoices to Slovenian tax
+            registration institutes.<br/>
+            If you don't want to do this now, you can skip this wizard and
+            configure all the information manually in system settings.<br/>
+            See below for more information on different tax types.
+          </p>
+          <label for="company_id"/>
+          <field name="company_id" widget="selection"/>
+          <label for="l10n_si_tax_reg_installer_account_tax_line_ids"/>
+          <field name="l10n_si_tax_reg_installer_account_tax_line_ids" widget="one2many_list">
+            <tree editable="top">
+              <field name="account_tax_id" domain="[('company_id', '=', parent.company_id)]"/>
+              <field name="type"/>
+            </tree>
+          </field>
+        </separator>
+        <button name="action_next" position="attributes">
+          <attribute name="string">Setup Tax Grouping</attribute>
+        </button>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_account_tax_action" model="ir.actions.act_window">
+      <field name="name">Configure Slovenian Tax Registry Account Tax Data</field>
+      <field name="res_model">l10n_si_tax_reg.installer.account.tax</field>
+      <field name="view_id" ref="l10n_si_tax_reg_installer_account_tax_view_form"/>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_installer_account_tax_action" model="ir.actions.todo">
+      <field name="action_id" ref="l10n_si_tax_reg_installer_account_tax_action"/>
+      <field name="sequence">30</field>
+      <field name="type">automatic</field>
+    </record-->
+
+  </data>
+  <data noupdate="1">
+
+    <record id="l10n_si_tax_reg_menu_action" model="ir.actions.client">
+      <field name="name">Open Business Premise Menu</field>
+      <field name="tag">reload</field>
+      <field name="params" eval="{'menu_id': ref('l10n_si_tax_reg_business_premise_menu')}"/>
+    </record>
+
+    <record id="l10n_si_tax_reg_installer_open_action" model="ir.actions.todo">
+      <field name="action_id" ref="l10n_si_tax_reg_menu_action"/>
+      <field name="sequence">40</field>
+      <field name="type">automatic</field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+<!--    <template id="report_order_document" inherit_id="point_of_sale.report_receipt">-->
+<!--      <xpath expr="//div[@class='page']" position="inside">-->
+<!--        <p t-if="o.l10n_si_tax_reg_num_copy &gt; 2">-->
+<!--          <strong>Invoice Copy No.: </strong>-->
+<!--          <span t-field="o.l10n_si_tax_reg_num_copy"/>-->
+<!--        </p>-->
+<!--        <p t-if="o.l10n_si_tax_reg_eor">-->
+<!--          <strong>EOR: </strong>-->
+<!--          <span t-field="o.l10n_si_tax_reg_eor"/>-->
+<!--        </p>-->
+<!--        <p t-if="o.l10n_si_tax_reg_zoi">-->
+<!--          <strong>ZOI: </strong>-->
+<!--          <span t-field="o.l10n_si_tax_reg_zoi"/><br/>-->
+<!--          <t t-set="l10n_si_tax_reg_point_of_sale_code_type" t-value="'Code128'"/>-->
+<!--          <t t-if="o.session_id.config_id.l10n_si_tax_reg_code_type == 'qr'">-->
+<!--            <t t-set="l10n_si_tax_reg_point_of_sale_code_type" t-value="'QR'"/>-->
+<!--          </t>-->
+<!--          <img t-att-src="'/l10n_si_tax_registry/barcode?type=%s&amp;value=%s&amp;lines=%s&amp;width=%s&amp;height=%s&amp;humanreadable=%s' % (l10n_si_tax_reg_point_of_sale_code_type, o.get_report_for_l10n_si_tax_reg_barcode(), 3 if o.session_id.config_id.l10n_si_tax_reg_code_num_lines &lt; 1 else o.session_id.config_id.l10n_si_tax_reg_code_num_lines, 300 if o.session_id.config_id.l10n_si_tax_reg_code_width &lt; 1 else o.session_id.config_id.l10n_si_tax_reg_code_width, 27 if o.session_id.config_id.l10n_si_tax_reg_code_height &lt; 1 else o.session_id.config_id.l10n_si_tax_reg_code_height, o.session_id.config_id.l10n_si_tax_reg_code_human_readable)"/>-->
+<!--        </p>-->
+<!--      </xpath>-->
+<!--    </template>-->
+
+  </data>
+</odoo>

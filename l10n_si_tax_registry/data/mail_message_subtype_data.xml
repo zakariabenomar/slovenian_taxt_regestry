@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <!-- Premise-related subtypes for messaging / Chatter -->
+    <record id="mt_premise_registered" model="mail.message.subtype">
+      <field name="name">Registered</field>
+      <field name="res_model">l10n_si_tax_reg.premise</field>
+      <field name="default" eval="False"/>
+      <field name="description">Premise registered</field>
+    </record>
+    <record id="mt_premise_closed" model="mail.message.subtype">
+      <field name="name">Closed</field>
+      <field name="res_model">l10n_si_tax_reg.premise</field>
+      <field name="default" eval="False"/>
+      <field name="description">Premise closed</field>
+    </record>
+
+  </data>
+</odoo>

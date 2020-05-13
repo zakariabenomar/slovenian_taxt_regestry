@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+
+  <t t-extend="PosTicket">
+    <t t-jquery="div.pos-center-align:first > t:first" t-operation="replace">
+      <span class="l10n_si_tax_reg_ticket">
+        <t t-esc="new Date().toString(Date.CultureInfo.formatPatterns.shortDate + ' ' +
+          Date.CultureInfo.formatPatterns.longTime)"/>
+      </span>
+    </t>
+  </t>
+
+  <t t-name="L10nSiTaxRegistryPointOfSaleTicketDateOrder">
+    <t t-esc="order.date_order"/>
+  </t>
+
+  <t t-name="L10nSiTaxRegistryPointOfSaleTicket">
+    <div class="l10n-si-tax-registry-point-of-sale-sale-ticket">
+      <br/>
+      <t t-if="order.l10n_si_tax_reg_num_copy > 2">
+        Copy Number: <t t-esc="order.l10n_si_tax_reg_num_copy"/><br />
+      </t>
+      <t t-if="order.l10n_si_tax_reg_eor">
+        <b>EOR: </b><t t-esc="order.l10n_si_tax_reg_eor"/><br/>
+      </t>
+      <t t-if="order.l10n_si_tax_reg_zoi">
+        <b>ZOI: </b><t t-esc="order.l10n_si_tax_reg_zoi"/><br/>
+        <img t-att-src="order.l10n_si_tax_reg_barcode_base64" t-att-alt="order.l10n_si_tax_reg_barcode" style="width: 100%;"/>
+      </t>
+    </div>
+  </t>
+
+  <t t-extend="XmlReceipt">
+    <t t-jquery="t[t-esc='receipt.date.localestring']" t-operation="replace"/>
+    <t t-jquery="div[font='b']:last" t-operation="after">
+      <t t-if="receipt.l10n_si_tax_reg_receipt">
+        <span class="l10n_si_tax_reg_receipt"><t t-esc="receipt.name"/></span>
+      </t>
+    </t>
+  </t>
+
+  <t t-name="L10nSiTaxRegistryPointOfSaleReceipt">
+    <div font="b">
+      <div><t t-esc="order.date_order"/></div>
+    </div>
+    <line t-if="order.l10n_si_tax_reg_num_copy > 2">
+      <left font="b">Copy Number</left>
+      <right><value><t t-esc="order.l10n_si_tax_reg_num_copy"/></value></right>
+    </line>
+    <t t-if="order.l10n_si_tax_reg_eor">
+      <div align="left"><b>EOR: </b><t t-esc="order.l10n_si_tax_reg_eor"/></div>
+    </t>
+    <t t-if="order.l10n_si_tax_reg_zoi">
+      <div align="left"><b>ZOI: </b><t t-esc="order.l10n_si_tax_reg_zoi"/></div>
+      <img t-att-src="order.l10n_si_tax_reg_barcode_base64" t-att-alt="order.l10n_si_tax_reg_barcode"/>
+    </t>
+  </t>
+
+</templates>

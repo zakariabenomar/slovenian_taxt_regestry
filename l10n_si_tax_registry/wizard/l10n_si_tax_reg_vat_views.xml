@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="l10n_si_tax_reg_vat_view_form" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.vat.form</field>
+      <field name="model">l10n_si_tax_reg.vat</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <label for="name"/>
+            <div>
+              SI<field name="name" class="oe_inline"/>
+            </div>
+          </group>
+          <footer>
+            <button name="action_assign_vat" string="Save" type="object" class="oe_highlight"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_vat_action" model="ir.actions.act_window">
+      <field name="name">Slovenian Tax Registry TIN</field>
+      <field name="res_model">l10n_si_tax_reg.vat</field>
+<!--      <field name="view_type">form</field>-->
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="l10n_si_tax_reg_vat_view_form"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="l10n_si_tax_reg_premise_workflow" model="workflow">
+      <field name="name">l10n_si_tax_reg.premise.workflow</field>
+      <field name="osv">l10n_si_tax_reg.premise</field>
+      <field name="on_create">True</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_workflow_activity_draft" model="workflow.activity">
+      <field name="wkf_id" ref="l10n_si_tax_reg_premise_workflow"/>
+      <field name="flow_start">True</field>
+      <field name="name">draft</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_workflow_activity_done" model="workflow.activity">
+      <field name="wkf_id" ref="l10n_si_tax_reg_premise_workflow"/>
+      <field name="name">done</field>
+      <field name="action">action_done()</field>
+      <field name="kind">function</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_workflow_activity_cancel" model="workflow.activity">
+      <field name="wkf_id" ref="l10n_si_tax_reg_premise_workflow"/>
+      <field name="name">cancel</field>
+      <field name="flow_stop">True</field>
+      <field name="action">action_cancel()</field>
+      <field name="kind">function</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_workflow_transition_open" model="workflow.transition">
+      <field name="act_from" ref="l10n_si_tax_reg_premise_workflow_activity_draft"/>
+      <field name="act_to" ref="l10n_si_tax_reg_premise_workflow_activity_done"/>
+      <field name="signal">l10n_si_tax_reg_premise_done</field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_workflow_transition_cancel_draft" model="workflow.transition">
+      <field name="act_from" ref="l10n_si_tax_reg_premise_workflow_activity_done"/>
+      <field name="act_to" ref="l10n_si_tax_reg_premise_workflow_activity_cancel"/>
+      <field name="signal">l10n_si_tax_reg_premise_cancel</field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="account_invoice_form_view_inherit_l10n_si_tax_registry" model="ir.ui.view">
+      <field name="name">account.move.form.inherit</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="arch" type="xml">
+        <!-- 
+        <xpath expr="/form/header/button[@name='invoice_cancel']" position="replace">
+          <button name="invoice_cancel" states="draft,proforma2,open" string="Cancel Invoice" groups="base.group_no_one" attrs="{'invisible':['|',('l10n_si_tax_reg_premise_line_id', '!=', False), ('state', 'not in', ['draft', 'proforma2', 'open'])]}"/>
+        </xpath>
+         -->
+        <field name="currency_id" position="after">
+          <label for="l10n_si_tax_reg_premise_line_id"/>
+          <div>
+            <field name="l10n_si_tax_reg_premise_line_id" class="oe_inline"/>
+            <button name="l10n_si_tax_reg_execute" type="object"
+              class="oe_inline oe_link oe_edit_only"
+              string="Register"
+              context="{'l10n_si_tax_reg_issue_datetime': True}"
+              attrs="{'invisible': ['|', ('l10n_si_tax_reg_premise_line_id', '=', False), ('l10n_si_tax_reg_sent', '=', True)]}"/>
+            <button name="l10n_si_tax_reg_reexecute" type="object"
+              class="oe_inline oe_link oe_edit_only"
+              string="Retry Registration"
+              attrs="{'invisible': ['|', ('l10n_si_tax_reg_eor', '&lt;&gt;', False), ('l10n_si_tax_reg_sent', '=', False)]}"/>
+          </div>
+        </field>
+        <notebook position="inside">
+          <page string="Si. Tax Registry" attrs="{'invisible': [('l10n_si_tax_reg_premise_line_id', '=', False)]}">
+            <group>
+              <group string="Registration Data">
+                <field name="l10n_si_tax_reg_msg_ident"/>
+                <field name="l10n_si_tax_reg_msg_dt"/>
+                <field name="l10n_si_tax_reg_force_sent"/>
+                <field name="l10n_si_tax_reg_sent"/>
+              </group>
+              <group string="Reference Data">
+                <field name="l10n_si_tax_reg_premise"/>
+                <field name="l10n_si_tax_reg_device"/>
+                <field name="l10n_si_tax_reg_number"/>
+                <field name="l10n_si_tax_reg_eor"/>
+              </group>
+              <group string="Registry Specific Invoice Data">
+                <field name="l10n_si_tax_reg_zoi"/>
+                <field name="l10n_si_tax_reg_date_invoice" attrs="{'readonly': [('l10n_si_tax_reg_sent', '=', True)]}"/>
+                <field name="l10n_si_tax_reg_num_copy" attrs="{'invisible': [('l10n_si_tax_reg_num_copy', '&lt;', 1)]}"/>
+              </group>
+              <group string="Refund Reference" attrs="{'invisible': [('l10n_si_tax_reg_number_ref', '=', False)]}">
+                <field name="l10n_si_tax_reg_premise_ref"/>
+                <field name="l10n_si_tax_reg_device_ref"/>
+                <field name="l10n_si_tax_reg_number_ref"/>
+                <field name="l10n_si_tax_reg_date_invoice_ref"/>
+              </group>
+            </group>
+            <group col="4" string="Source Invoice(s)">
+              <field name="l10n_si_tax_reg_source_model"/>
+              <label for="l10n_si_tax_reg_source_records"/>
+              <div>
+                <field name="l10n_si_tax_reg_source_records"/>
+                <button name="action_l10n_si_tax_reg_view_source_invoices" type="object"
+                  class="oe_inline oe_link"
+                  string="Go To Source" icon="gtk-go-forward"
+                  attrs="{'invisible': [('l10n_si_tax_reg_source_records', '=', False)]}"/>
+              </div>
+            </group>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
+  </data>
+</odoo>

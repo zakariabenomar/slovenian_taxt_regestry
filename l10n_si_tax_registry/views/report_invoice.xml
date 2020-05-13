@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+  <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+    <xpath expr="//div[@class='page']/div[@class='row mt32 mb32']" position="inside">
+      <div class="col-xs-4" t-if="o.l10n_si_tax_reg_date_invoice">
+        <strong>Invoice Issue Time:</strong>
+        <p t-field="o.l10n_si_tax_reg_date_invoice"/>
+      </div>
+      <div class="col-xs-4" t-if="o._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]">
+        <strong>Operator Identification:</strong>
+        <p t-esc="o._get_export_for_l10n_si_tax_reg_issuer_invoice_value()[0]"/>
+      </div>
+      <div class="col-xs-4" t-if="o.l10n_si_tax_reg_num_copy &gt; 0">
+        <strong>Invoice Copy No.:</strong>
+        <p t-field="o.l10n_si_tax_reg_num_copy"/>
+      </div>
+    </xpath>
+    <xpath expr="//div[@class='page']/div[@class='clearfix']/div[@class='row']/div[1]" position="before">
+      <div class="col-xs-6 pull-left" t-if="o.l10n_si_tax_reg_eor or o.l10n_si_tax_reg_zoi">
+        <p class="mb0" t-if="o.l10n_si_tax_reg_eor">
+          <strong>EOR: </strong>
+          <span t-field="o.l10n_si_tax_reg_eor"/>
+        </p>
+        <p t-if="o.l10n_si_tax_reg_zoi">
+          <strong>ZOI: </strong>
+          <span t-field="o.l10n_si_tax_reg_zoi"/><br/>
+          <img t-att-src="'/l10n_si_tax_registry/barcode?type=QR&amp;value=%s' % o.get_report_for_l10n_si_tax_reg_barcode()"/>
+        </p>
+      </div>
+    </xpath>
+  </template>
+
+</data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="res_company_form_view_inherit_l10n_si_tax_registry" model="ir.ui.view">
+      <field name="name">res.company.form.inherit</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="arch" type="xml">
+        <group name="social_media" position="after">
+          <group name="l10n_si_tax_registry_grp" string="Slovenian Tax Registry Configuration">
+            <group name="l10n_si_tax_registry_cert" string="Certificates">
+              <field name="l10n_si_tax_reg_key"/>
+              <field name="l10n_si_tax_reg_cert"/>
+              <field name="l10n_si_tax_reg_ca"/>
+              <button name="action_test_l10n_si_tax_reg_conn" string="Test Connection"
+                class="oe_link oe_edit_only" type="object" help="Request echo command with given credentials"/>
+            </group>
+            <group name="l10n_si_tax_registry_other" string="Other Settings">
+              <!--field name="l10n_si_tax_reg_passphrase"/-->
+              <field name="l10n_si_tax_reg_dev"/>
+            </group>
+          </group>
+        </group>
+      </field>
+    </record>
+
+  </data>
+</odoo>

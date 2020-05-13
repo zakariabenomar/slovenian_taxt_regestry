@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <record id="ir_sequence_l10n_si_tax_reg" model="ir.sequence">
+      <field name="name">Slovenian Tax Registry</field>
+      <field name="code">l10n_si_tax_reg</field>
+    </record>
+
+  </data>
+</odoo>

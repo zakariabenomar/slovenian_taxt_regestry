@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="pos_order_form_view_inherit_l10n_si_tax_registry_point_of_sale" model="ir.ui.view">
+      <field name="name">pos.order.form.inherit</field>
+      <field name="model">pos.order</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+      <field name="arch" type="xml">
+        <field name="picking_id" position="after">
+          <label for="l10n_si_tax_reg_premise_line_id"/>
+          <div>
+            <field name="l10n_si_tax_reg_premise_line_id" class="oe_inline"/>
+            <button name="l10n_si_tax_reg_execute" type="object"
+              class="oe_inline oe_link oe_edit_only"
+              string="Register"
+              context="{'l10n_si_tax_reg_issue_datetime': True}"
+              attrs="{'invisible': ['|', ('l10n_si_tax_reg_premise_line_id', '=', False), ('l10n_si_tax_reg_sent', '=', True)]}"/>
+            <button name="l10n_si_tax_reg_reexecute" type="object"
+              class="oe_inline oe_link oe_edit_only"
+              string="Retry Registration"
+              attrs="{'invisible': ['|', ('l10n_si_tax_reg_eor', '&lt;&gt;', False), ('l10n_si_tax_reg_sent', '=', False)]}"/>
+          </div>
+        </field>
+        <notebook position="inside">
+          <page string="Si. Tax Registry" attrs="{'invisible': [('l10n_si_tax_reg_premise_line_id', '=', False)]}">
+            <group>
+              <group string="Registration Data">
+                <field name="l10n_si_tax_reg_msg_ident"/>
+                <field name="l10n_si_tax_reg_msg_dt"/>
+                <field name="l10n_si_tax_reg_force_sent"/>
+                <field name="l10n_si_tax_reg_sent"/>
+              </group>
+              <group string="Reference Data">
+                <field name="l10n_si_tax_reg_premise"/>
+                <field name="l10n_si_tax_reg_device"/>
+                <field name="l10n_si_tax_reg_number"/>
+                <field name="l10n_si_tax_reg_eor"/>
+              </group>
+              <group string="Registry Specific Invoice Data">
+                <field name="l10n_si_tax_reg_zoi"/>
+                <field name="l10n_si_tax_reg_num_copy" attrs="{'invisible': [('l10n_si_tax_reg_num_copy', '&lt;', 1)]}"/>
+              </group>
+              <group string="Refund Reference" attrs="{'invisible': [('l10n_si_tax_reg_number_ref', '=', False)]}">
+                <field name="l10n_si_tax_reg_premise_ref"/>
+                <field name="l10n_si_tax_reg_device_ref"/>
+                <field name="l10n_si_tax_reg_number_ref"/>
+                <field name="l10n_si_tax_reg_date_invoice_ref"/>
+              </group>
+            </group>
+          </page>
+        </notebook>
+      </field>
+    </record>
+
+    <record id="pos_config_form_view_inherit_l10n_si_tax_registry_point_of_sale" model="ir.ui.view">
+      <field name="name">pos.config.form.inherit</field>
+      <field name="model">pos.config</field>
+      <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+      <field name="arch" type="xml">
+        <field name="sequence_id" position="after">
+          <field name="l10n_si_tax_reg_premise_line_id"/>
+        </field>
+        <div id="accounting_section" position="after">
+          <group string="Si. Tax Registry Printer" attrs="{'invisible': [('l10n_si_tax_reg_premise_line_id', '=', False)]}">
+            <field name="l10n_si_tax_reg_code_type" help="Leaving this value empty will make the PoS terminal use default values."/>
+            <field name="l10n_si_tax_reg_code_width" attrs="{'invisible': [('l10n_si_tax_reg_code_type', '=', False)], 'required': [('l10n_si_tax_reg_code_type', '&lt;&gt;', False)]}"/>
+            <field name="l10n_si_tax_reg_code_height" attrs="{'invisible': [('l10n_si_tax_reg_code_type', '=', False)], 'required': [('l10n_si_tax_reg_code_type', '&lt;&gt;', False)]}"/>
+            <field name="l10n_si_tax_reg_code_human_readable" attrs="{'invisible': [('l10n_si_tax_reg_code_type', '&lt;&gt;', 'code128')]}"/>
+            <field name="l10n_si_tax_reg_code_num_lines" attrs="{'invisible': [('l10n_si_tax_reg_code_type', '&lt;&gt;', 'code128')], 'required': [('l10n_si_tax_reg_code_type', '=', 'code128')]}"/>
+          </group>
+        </div>
+      </field>
+    </record>
+
+  </data>
+</odoo>

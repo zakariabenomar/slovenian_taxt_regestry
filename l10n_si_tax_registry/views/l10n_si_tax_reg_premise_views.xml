@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="l10n_si_tax_reg_premise_view_search" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.premise.search</field>
+      <field name="model">l10n_si_tax_reg.premise</field>
+      <field name="arch" type="xml">
+        <search string="Search Business Premises">
+          <filter icon="terp-stage" string="Not Closed" name="not_closed" domain="[('state','&lt;&gt;', 'cancel')]" help="Premises that are or can be still operational."/>
+          <field name="name"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_view_tree" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.premise.tree</field>
+      <field name="model">l10n_si_tax_reg.premise</field>
+      <field name="arch" type="xml">
+<!--        <tree colors="blue:state == 'draft'; red:state == 'cancel'">-->
+        <tree>
+          <field name="name"/>
+          <field name="comment"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_view_form" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.premise.form</field>
+      <field name="model">l10n_si_tax_reg.premise</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button name="l10n_si_tax_reg_premise_done" states="draft" string="Register"/>
+            <button name="l10n_si_tax_reg_premise_cancel" states="done" string="Close"/>
+            <button name="action_draft" type="object" states="cancel" string="Re-open"/>
+            <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,done"/>
+          </header>
+          <sheet>
+            <div class="oe_title oe_left">
+              <label class="oe_edit_only" for="name"/>
+              <h1>
+                <field default_focus="1" name="name" attrs="{'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+              </h1>
+              <group>
+                <field name="res_partner_id"/>
+                <field name="ir_sequence_id"/>
+              </group>
+            </div>
+            <group>
+              <group>
+                <field name="type" widget="radio"/>
+                <field name="type_movable" attrs="{'invisible': [('type', '&lt;&gt;', 'movable')], 'required': [('type', '=', 'movable')]}" widget="radio"/>
+                <field name="number_cadastral" attrs="{'invisible': [('type', '&lt;&gt;', 'real_estate')], 'required': [('type', '=', 'real_estate')]}"/>
+                <field name="number_building" attrs="{'invisible': [('type', '&lt;&gt;', 'real_estate')], 'required': [('type', '=', 'real_estate')]}"/>
+                <field name="number_section_building" attrs="{'invisible': [('type', '&lt;&gt;', 'real_estate')], 'required': [('type', '=', 'real_estate')]}"/>
+                <label for="street" string="Address" attrs="{'invisible': [('type', '&lt;&gt;', 'real_estate')]}"/>
+                <div attrs="{'invisible': [('type', '&lt;&gt;', 'real_estate')]}">
+                  <field name="street" placeholder="Street (e.g. Tržaska cesta 24B)" attrs="{'required': [('type', '=', 'real_estate')], 'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+                  <field name="street2" placeholder="Community" attrs="{'required': [('type', '=', 'real_estate')], 'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+                  <div class="address_format">
+                    <field name="city" placeholder="City" style="width: 70%%" attrs="{'required': [('type', '=', 'real_estate')], 'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+                    <field name="zip" placeholder="ZIP" style="width: 30%%" attrs="{'required': [('type', '=', 'real_estate')], 'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+                  </div>
+                </div>
+              </group>
+              <group>
+                <field name="company_id" attrs="{'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+                <field name="partner_id"/>
+                <field name="date" attrs="{'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Extra Notes">
+                <field name="comment" placeholder="Additional notes for registration." attrs="{'readonly': [('state', '&lt;&gt;', 'draft')]}"/>
+              </page>
+              <page string="Electronic Devices">
+                <field name="l10n_si_tax_reg_premise_line_ids" widget="one2many_list"/>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_action" model="ir.actions.act_window">
+      <field name="name">Business Premise</field>
+      <field name="res_model">l10n_si_tax_reg.premise</field>
+<!--      <field name="view_type">form</field>-->
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="l10n_si_tax_reg_premise_view_tree"/>
+      <field name="context">{'search_default_not_closed': 1}</field>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Add and register a new business premise.
+        </p>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_line_view_tree" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.premise.line.tree</field>
+      <field name="model">l10n_si_tax_reg.premise.line</field>
+      <field name="arch" type="xml">
+        <tree editable="top">
+          <field name="name"/>
+          <field name="l10n_si_tax_reg_premise_id"/>
+          <field name="ir_sequence_id"/>
+          <field name="number_next_actual"/>
+          <field name="active"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_line_view_form" model="ir.ui.view">
+      <field name="name">l10n_si_tax_reg.premise.line.form</field>
+      <field name="model">l10n_si_tax_reg.premise.line</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <div class="oe_title oe_left">
+              <label class="oe_edit_only" for="name"/>
+              <h1>
+                <field default_focus="1" name="name"/>
+              </h1>
+              <label for="l10n_si_tax_reg_premise_id" class="oe_edit_only"/>
+              <field name="l10n_si_tax_reg_premise_id"/>
+              <group>
+                <field name="invoice_registered"/>
+                <field name="active"/>
+              </group>
+            </div>
+            <group col="4">
+              <field name="ir_sequence_id"/>
+              <field name="number_next_actual"/>
+            </group>
+            <label for="description"/>
+            <field name="description"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="l10n_si_tax_reg_premise_line_action" model="ir.actions.act_window">
+      <field name="name">Electronic Device</field>
+      <field name="res_model">l10n_si_tax_reg.premise.line</field>
+<!--      <field name="view_type">form</field>-->
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="l10n_si_tax_reg_premise_line_view_tree"/>
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          Add and assign electronic invoicing devices to business premises.
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="l10n_si_tax_reg_menu" sequence="41" name="Slovenian Tax Registry" parent="account.menu_finance_configuration" groups="account.group_account_manager"/>
+
+    <menuitem action="l10n_si_tax_reg_premise_action" id="l10n_si_tax_reg_business_premise_menu" sequence="1" name="Business Premises" parent="l10n_si_tax_reg_menu" groups="account.group_account_manager"/>
+    <menuitem action="l10n_si_tax_reg_premise_line_action" id="l10n_si_tax_reg_business_premise_line_menu" sequence="2" name="Electronic Devices" parent="l10n_si_tax_reg_menu" groups="account.group_account_manager"/>
+
+  </data>
+</odoo>
