@@ -8,7 +8,7 @@
             	<h2>Slovenian Tax Registry</h2>
             	<div class="row mt16 o_settings_container" id="slovenian_tax_registry">
             		<div class="col-12 col-lg-6 o_setting_box">
-            			<div class="o_setting_left_pane">
+
 				            <div>
 				              <label for="default_l10n_si_tax_reg_premise_line_id"/>
 				              <field name="default_l10n_si_tax_reg_premise_line_id" class="oe_inline"/>
@@ -17,11 +17,11 @@
 				              <label for="default_l10n_si_tax_reg_partner_id"/>
 				              <field name="default_l10n_si_tax_reg_partner_id" class="oe_inline"/>
 				            </div>
-				            <div>
+				            <div style="padding-bottom:100px;">
 				              <field name="default_l10n_si_tax_reg_force_sent" class="oe_inline"/>
 				              <label for="default_l10n_si_tax_reg_force_sent"/>
 				            </div>            			
-            			</div>
+
             		</div>
             	</div>
             </xpath>

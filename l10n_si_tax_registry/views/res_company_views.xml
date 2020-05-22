@@ -7,7 +7,7 @@
       <field name="model">res.company</field>
       <field name="inherit_id" ref="base.view_company_form"/>
       <field name="arch" type="xml">
-        <group name="social_media" position="after">
+        <xpath expr="//group" position="after">
           <group name="l10n_si_tax_registry_grp" string="Slovenian Tax Registry Configuration">
             <group name="l10n_si_tax_registry_cert" string="Certificates">
               <field name="l10n_si_tax_reg_key"/>
@@ -21,7 +21,7 @@
               <field name="l10n_si_tax_reg_dev"/>
             </group>
           </group>
-        </group>
+        </xpath>
       </field>
     </record>
 
