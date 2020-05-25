@@ -441,7 +441,10 @@ class L10nSiTaxRegInterface(models.AbstractModel):
         ResPartner = self.env['res.partner']
         rec = self._get_export_for_l10n_si_tax_reg_taxes()
         refund = self.env.context.get('l10n_si_tax_registry_refund', False)
-        precision = str(dp.get_precision('Account')(self.env.cr)[1])
+        print('tessttt',dp.get_precision('Account'))
+        print('tessttt1',self.env.cr)
+        print('tessttt2',dp.get_precision('Account')(self.env.cr)[1])
+        precision = dp.get_precision('Account')(self.env.cr)[1]
 
         for r in rec:  # for line in invoice_line_ids
             val = r._get_export_for_l10n_si_tax_reg_amount_value()  # line.price_unit in company currency
