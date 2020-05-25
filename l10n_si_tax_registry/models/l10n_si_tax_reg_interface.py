@@ -441,9 +441,6 @@ class L10nSiTaxRegInterface(models.AbstractModel):
         ResPartner = self.env['res.partner']
         rec = self._get_export_for_l10n_si_tax_reg_taxes()
         refund = self.env.context.get('l10n_si_tax_registry_refund', False)
-        print('tessttt',dp.get_precision('Account'))
-        print('tessttt1',self.env.cr)
-        print('tessttt2',dp.get_precision('Account')(self.env.cr)[1])
         # precision = dp.get_precision('Account')(self.env.cr)[1]
         precision = dp.get_precision('Account')
 
