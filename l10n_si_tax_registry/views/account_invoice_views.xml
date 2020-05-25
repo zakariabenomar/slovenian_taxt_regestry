@@ -15,7 +15,7 @@
         <field name="currency_id" position="after">
           <label for="l10n_si_tax_reg_premise_line_id"/>
           <div>
-            <field name="l10n_si_tax_reg_premise_line_id" class="oe_inline"/>
+            <field name="l10n_si_tax_reg_premise_line_id" class="oe_inline"/><br/>
             <button name="l10n_si_tax_reg_execute" type="object"
               class="oe_inline oe_link oe_edit_only"
               string="Register"
